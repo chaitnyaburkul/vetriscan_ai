@@ -1,0 +1,59 @@
+.page { display: flex; flex-direction: column; gap: 16px; }
+.pageTitle { display: flex; align-items: center; gap: 12px; background: var(--bg2); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 10px; padding: 14px 18px; }
+.pageTitleIcon { width: 36px; height: 36px; background: var(--primary-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+.pageTitleText { font-size: 1.1rem; font-weight: 800; color: var(--text); }
+.pageTitleSub  { font-size: 0.78rem; color: var(--text2); margin-top: 2px; }
+
+.searchBar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.searchInput {
+  flex: 1; display: flex; align-items: center; gap: 8px;
+  background: var(--bg2); border: 1.5px solid var(--border);
+  border-radius: 8px; padding: 10px 14px; min-width: 200px;
+  transition: border-color 0.15s;
+}
+.searchInput:focus-within { border-color: var(--primary); }
+.searchInput input { flex: 1; background: none; border: none; outline: none; color: var(--text); font-size: 0.88rem; font-family: inherit; }
+.searchInput svg { color: var(--text3); flex-shrink: 0; }
+
+.searchBtn {
+  padding: 10px 20px; border-radius: 8px; border: none;
+  background: var(--primary); color: white; font-weight: 700; font-size: 0.85rem;
+  transition: all 0.15s;
+}
+.searchBtn:hover:not(:disabled) { background: var(--primary-dark); }
+.searchBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.locationBtn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 16px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg2);
+  color: var(--text2); font-weight: 600; font-size: 0.85rem; transition: all 0.15s;
+}
+.locationBtn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+.locationBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.error { background: #fdf2f2; border: 1px solid #f5c6cb; border-left: 4px solid var(--red); border-radius: 8px; padding: 11px 16px; color: var(--red); font-size: 0.85rem; }
+.loadingMsg { display: flex; align-items: center; gap: 8px; color: var(--text2); font-size: 0.85rem; padding: 8px 0; }
+
+.map { width: 100%; height: 400px; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; z-index: 0; }
+
+.placeholder { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 60px 20px; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; color: var(--text2); text-align: center; font-size: 0.9rem; }
+
+.clinicList { display: flex; flex-direction: column; gap: 10px; }
+.clinicListTitle { font-weight: 700; font-size: 0.88rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.4px; }
+.clinicCard { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; transition: all 0.15s; }
+.clinicCard:hover { box-shadow: var(--shadow); border-color: var(--primary); }
+.clinicIcon { width: 36px; height: 36px; background: var(--primary-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0; }
+.clinicInfo { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.clinicName    { font-weight: 700; color: var(--text); font-size: 0.9rem; }
+.clinicAddress { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--text2); }
+.clinicPhone   { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--primary); }
+.clinicHours   { font-size: 0.75rem; color: var(--text3); }
+.dirBtn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 7px 12px; border-radius: 7px;
+  border: 1px solid var(--primary); color: var(--primary);
+  font-size: 0.78rem; font-weight: 600; white-space: nowrap;
+  text-decoration: none; transition: all 0.15s;
+}
+.dirBtn:hover { background: var(--primary-bg); }

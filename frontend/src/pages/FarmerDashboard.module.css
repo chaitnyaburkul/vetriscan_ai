@@ -1,0 +1,105 @@
+.page { display: flex; flex-direction: column; gap: 24px; }
+
+/* Page title bar */
+.pageTitle {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-left: 4px solid var(--primary);
+}
+.pageTitleText { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+.pageTitleSub  { font-size: 0.8rem; color: var(--text2); margin-top: 2px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  border-radius: 12px; padding: 24px 28px; color: white;
+}
+.hero h1 { font-size: 1.4rem; font-weight: 800; }
+.hero p  { color: rgba(255,255,255,0.8); margin-top: 4px; font-size: 0.88rem; }
+
+/* Metrics */
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.metricCard {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 20px;
+  display: flex; align-items: center; gap: 14px;
+  transition: all 0.2s; border-left: 3px solid var(--primary);
+}
+.metricCard:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.metricIconBox {
+  width: 44px; height: 44px;
+  background: var(--primary-bg); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--primary); font-size: 1.2rem; flex-shrink: 0;
+}
+.metricValue { font-size: 1.6rem; font-weight: 800; color: var(--text); line-height: 1; }
+.metricLabel { font-size: 0.75rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; }
+
+/* Health bar */
+.healthSection {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 24px;
+}
+.healthHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.healthTitle  { font-weight: 700; color: var(--text); font-size: 0.95rem; }
+.healthScore  { font-size: 1.4rem; font-weight: 900; }
+.barTrack { background: var(--bg3); border-radius: 6px; height: 10px; overflow: hidden; margin-bottom: 8px; }
+.barFill  { height: 100%; border-radius: 6px; transition: width 0.8s ease; }
+.healthStatus { font-size: 0.82rem; font-weight: 600; }
+
+/* Quick actions */
+.sectionTitle {
+  font-size: 0.88rem; font-weight: 700; color: var(--text2);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.actionCard {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 16px;
+  text-align: center; cursor: pointer;
+  transition: all 0.2s; display: flex; flex-direction: column; gap: 10px; align-items: center;
+  border-top: 3px solid transparent;
+}
+.actionCard:hover { box-shadow: var(--shadow); transform: translateY(-3px); border-top-color: var(--primary); }
+.actionIcon {
+  width: 48px; height: 48px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+}
+.actionLabel { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+.actionDesc  { font-size: 0.75rem; color: var(--text2); }
+
+/* Activity */
+.activitySection {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+}
+.activityHeader {
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  font-weight: 700; font-size: 0.9rem; color: var(--text);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.activityItem {
+  padding: 12px 20px; border-bottom: 1px solid var(--bg3);
+  display: flex; align-items: center; gap: 14px;
+}
+.activityItem:last-child { border-bottom: none; }
+.activityDot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.activityText { flex: 1; font-size: 0.88rem; color: var(--text); }
+.activityMeta { font-size: 0.75rem; color: var(--text3); }
+.activityConf { font-size: 0.78rem; font-weight: 600; }
+
+@media (max-width: 768px) {
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .actions { grid-template-columns: 1fr; }
+}
+
+/* Alert banner */
+.alertBanner {
+  display: flex; align-items: center; gap: 10px;
+  background: #fef9e7;
+  border: 1px solid #f9ca24;
+  border-left: 4px solid var(--orange);
+  border-radius: 8px; padding: 12px 16px;
+  color: #7d6608; font-size: 0.88rem; font-weight: 500;
+}

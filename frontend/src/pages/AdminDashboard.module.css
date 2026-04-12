@@ -1,0 +1,129 @@
+.tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+.tab {
+  padding: 10px 18px; border: none; background: transparent;
+  color: var(--text2); font-weight: 600; font-size: 0.85rem;
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: all 0.15s; cursor: pointer;
+}
+.tab:hover { color: var(--primary); }
+.activeTab { color: var(--primary); border-bottom-color: var(--primary); }
+
+.section { display: flex; flex-direction: column; gap: 12px; }
+.sectionTitle { font-size: 0.88rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+
+.summaryGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.summaryCard {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px 20px; text-align: center;
+}
+.summaryValue { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+.summaryLabel { font-size: 0.75rem; color: var(--text2); margin-top: 4px; }
+
+.empty {
+  display: flex; align-items: center; gap: 10px;
+  padding: 20px; color: var(--text2); font-size: 0.9rem;
+  background: var(--bg3); border-radius: 8px;
+}
+
+.doctorCard {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 18px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.doctorName { font-weight: 700; color: var(--text); }
+.doctorMeta { font-size: 0.78rem; color: var(--text2); margin-top: 2px; }
+.doctorActions { display: flex; gap: 8px; }
+
+.btnApprove {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 7px; border: none;
+  background: var(--primary); color: white;
+  font-weight: 600; font-size: 0.82rem; transition: all 0.15s;
+}
+.btnApprove:hover { background: var(--primary-dark); }
+
+.btnReject {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 7px;
+  border: 1px solid var(--red); background: transparent;
+  color: var(--red); font-weight: 600; font-size: 0.82rem; transition: all 0.15s;
+}
+.btnReject:hover { background: #fdf2f2; }
+
+.table {
+  width: 100%; border-collapse: collapse;
+  background: var(--bg2); border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.table th {
+  background: var(--bg3); padding: 11px 16px;
+  text-align: left; font-size: 0.75rem; font-weight: 700;
+  color: var(--text2); text-transform: uppercase; letter-spacing: 0.4px;
+  border-bottom: 1px solid var(--border);
+}
+.table td {
+  padding: 11px 16px; font-size: 0.85rem; color: var(--text);
+  border-bottom: 1px solid var(--bg3);
+}
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: var(--bg3); }
+
+.roleBadge {
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+}
+.farmer { background: rgba(26,107,60,0.1); color: var(--primary); }
+.doctor { background: rgba(26,82,118,0.1); color: var(--blue); }
+.admin  { background: rgba(108,52,131,0.1); color: var(--purple); }
+
+.approved { color: var(--primary); font-weight: 600; font-size: 0.82rem; }
+.pending  { color: var(--orange); font-weight: 600; font-size: 0.82rem; }
+
+.btnDelete {
+  padding: 6px 10px; border-radius: 6px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--red); transition: all 0.15s;
+}
+.btnDelete:hover { background: #fdf2f2; border-color: var(--red); }
+
+.exportBtn {
+  margin-left: auto;
+  padding: 6px 14px; border-radius: 7px;
+  border: 1px solid var(--border); background: var(--bg3);
+  color: var(--text2); font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.exportBtn:hover { border-color: var(--primary); color: var(--primary); }
+
+.searchInput {
+  width: 100%; padding: 9px 14px;
+  background: var(--bg3); border: 1.5px solid var(--border);
+  border-radius: 8px; color: var(--text); font-size: 0.88rem;
+  outline: none; font-family: inherit; margin-bottom: 12px;
+  transition: border-color 0.15s;
+}
+.searchInput:focus { border-color: var(--primary); }
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+}
+
+.reportBtn {
+  padding: 9px 18px; border-radius: 8px; border: none;
+  background: var(--primary); color: white; font-weight: 700;
+  font-size: 0.85rem; cursor: pointer; transition: all 0.15s;
+}
+.reportBtn:hover { background: var(--primary-dark); }
+
+.outbreakAlert {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: #fdf2f2; border: 1px solid #f5c6cb;
+  border-left: 4px solid var(--red);
+  border-radius: 8px; padding: 12px 16px;
+  color: var(--red); font-size: 0.85rem; margin-bottom: 16px;
+}
+.outbreakItem {
+  background: rgba(192,57,43,0.1); border-radius: 4px;
+  padding: 2px 8px; font-size: 0.78rem; font-weight: 600;
+}

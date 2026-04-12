@@ -1,0 +1,11 @@
+.wrapper { display: flex; align-items: center; gap: 8px; padding: 6px 4px; }
+.label { font-size: 0.75rem; color: var(--text2); font-weight: 600; }
+.buttons { display: flex; gap: 4px; }
+.btn {
+  padding: 5px 10px; border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg3); color: var(--text2);
+  font-size: 0.78rem; font-weight: 600; transition: all 0.15s;
+}
+.btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
+.btn.active { background: var(--primary); border-color: var(--primary); color: white; }

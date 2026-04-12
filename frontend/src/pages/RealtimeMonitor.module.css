@@ -1,0 +1,53 @@
+.page { display: flex; flex-direction: column; gap: 20px; }
+.loading { display: flex; align-items: center; gap: 10px; color: var(--text2); padding: 40px; font-size: 0.9rem; }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; background: var(--bg2); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 10px; padding: 16px 20px; }
+.title    { font-size: 1.1rem; font-weight: 800; color: var(--text); }
+.subtitle { font-size: 0.78rem; color: var(--text2); margin-top: 3px; }
+.controls { display: flex; align-items: center; gap: 8px; }
+
+.liveDot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.liveOn  { background: #27ae60; animation: pulse 1.5s infinite; }
+.liveOff { background: var(--text3); }
+@keyframes pulse { 0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(39,174,96,0.4); } 50% { opacity:0.8; box-shadow: 0 0 0 5px rgba(39,174,96,0); } }
+
+.liveBtn { padding: 7px 14px; border-radius: 7px; border: 1px solid var(--border); background: var(--bg3); color: var(--text2); font-size: 0.82rem; font-weight: 600; transition: all 0.15s; }
+.liveBtnOn { border-color: #27ae60; color: #27ae60; background: rgba(39,174,96,0.08); }
+.refreshBtn { display: flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 7px; border: 1px solid var(--border); background: var(--bg3); color: var(--text2); font-size: 0.82rem; font-weight: 600; transition: all 0.15s; }
+.refreshBtn:hover { border-color: var(--primary); color: var(--primary); }
+
+.statsRow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.statCard { background: var(--bg2); border: 1px solid var(--border); border-left: 3px solid; border-radius: 10px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; transition: all 0.2s; }
+.statCard:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.statIcon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.statValue { font-size: 1.8rem; font-weight: 900; line-height: 1; }
+.statLabel { font-size: 0.72rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; }
+.statSub   { font-size: 0.68rem; color: var(--text3); margin-top: 1px; }
+
+.chartsRow { display: grid; grid-template-columns: 1fr 280px; gap: 16px; }
+.chartCard { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+.chartTitle { font-weight: 700; font-size: 0.88rem; color: var(--text); margin-bottom: 12px; }
+.noData { color: var(--text2); font-size: 0.85rem; padding: 20px 0; text-align: center; }
+
+.feedCard { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.feedHeader { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.feedTitle  { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.88rem; color: var(--text); }
+.feedCount  { font-size: 0.75rem; color: var(--text2); }
+.feedList   { max-height: 320px; overflow-y: auto; }
+.feedItem   { display: flex; align-items: center; gap: 12px; padding: 10px 18px; border-bottom: 1px solid var(--bg3); transition: background 0.1s; }
+.feedItem:last-child { border-bottom: none; }
+.feedItem:hover { background: var(--bg3); }
+.feedDot    { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.feedInfo   { flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.feedFarmer { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+.feedLocation { font-size: 0.72rem; color: var(--text3); }
+.feedDisease { font-size: 0.82rem; font-weight: 700; min-width: 140px; }
+.feedConf   { font-size: 0.78rem; color: var(--text2); min-width: 44px; text-align: right; }
+.feedTime   { font-size: 0.75rem; color: var(--text3); min-width: 40px; text-align: right; }
+
+@media (max-width: 900px) {
+  .statsRow { grid-template-columns: repeat(2, 1fr); }
+  .chartsRow { grid-template-columns: 1fr; }
+}
