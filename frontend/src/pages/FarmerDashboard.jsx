@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { userAPI, scanAPI } from '../api'
-import { FiSearch, FiMessageSquare, FiActivity, FiCheckCircle, FiAlertTriangle } from 'react-icons/fi'
+import toast from 'react-hot-toast'
+import { FiMessageSquare, FiActivity, FiEdit2, FiInfo } from 'react-icons/fi'
 import { MdOutlineHealthAndSafety, MdOutlineLocalHospital } from 'react-icons/md'
 import { GiCow } from 'react-icons/gi'
 import styles from './FarmerDashboard.module.css'
@@ -12,9 +13,13 @@ export default function FarmerDashboard() {
   const navigate = useNavigate()
   const [data, setData] = useState(null)
   const [scans, setScans] = useState([])
+  const [tip, setTip] = useState(null)
+  const [showProfile, setShowProfile] = useState(false)
+  const [profileForm, setProfileForm] = useState({ farm_name: '', location: '', cattle_count: 0 })
+  const [saving, setSaving] = useState(false)
   const user = JSON.parse(localStorage.getItem('user') || '{}')
 
-  useEffect(() => {
+  const loadData = () => {
     userAPI.me().then(r => {
       setData(r.data)
       if (r.data?.profile) {
@@ -27,21 +32,33 @@ export default function FarmerDashboard() {
     }).catch(() => {})
     scanAPI.history().then(r => setScans(r.data)).catch(() => {})
     userAPI.getTip().then(r => setTip(r.data)).catch(() => {})
-  }, [])
+  }
+
+  useEffect(() => { loadData() }, [])
+
+  const saveProfile = async () => {
+    setSaving(true)
+    try {
+      await userAPI.updateFarmer(profileForm)
+      toast.success('Profile updated!')
+      setShowProfile(false)
+      loadData()
+    } catch { toast.error('Failed to update profile') }
+    finally { setSaving(false) }
+  }
 
   const hour = new Date().getHours()
   const greeting = hour < 12 ? t('good_morning') : hour < 17 ? t('good_afternoon') : t('good_evening')
-
   const diseaseCount = scans.filter(s => s.predicted_disease !== 'Healthy').length
   const score = Math.max(0, 100 - diseaseCount * 15)
   const scoreColor = score >= 80 ? '#1a6b3c' : score >= 50 ? '#d68910' : '#c0392b'
   const scoreLabel = score >= 80 ? t('good') : score >= 50 ? t('moderate') : t('critical')
 
   const metrics = [
-    { label: t('total_scans'),   value: scans.length,                    icon: <MdOutlineHealthAndSafety size={20} />, color: '#1a6b3c' },
-    { label: t('consultations'), value: data?.consult_count || 0,        icon: <MdOutlineLocalHospital size={20} />,  color: '#1a5276' },
+    { label: t('total_scans'),   value: scans.length,                     icon: <MdOutlineHealthAndSafety size={20} />, color: '#1a6b3c' },
+    { label: t('consultations'), value: data?.consult_count || 0,         icon: <MdOutlineLocalHospital size={20} />,  color: '#1a5276' },
     { label: t('cattle_count'),  value: data?.profile?.cattle_count || 0, icon: <GiCow size={20} />,                  color: '#6c3483' },
-    { label: t('health_score'),  value: `${score}/100`,                  icon: <FiActivity size={20} />,              color: scoreColor },
+    { label: t('health_score'),  value: `${score}/100`,                   icon: <FiActivity size={20} />,             color: scoreColor },
   ]
 
   const actions = [
@@ -58,24 +75,54 @@ export default function FarmerDashboard() {
           <div className={styles.pageTitleText}>{t('dashboard')}</div>
           <div className={styles.pageTitleSub}>Farmer Health Management Portal</div>
         </div>
+        <button className={styles.editBtn} onClick={() => setShowProfile(!showProfile)}>
+          <FiEdit2 size={14} /> {t('update_profile')}
+        </button>
       </div>
 
       {/* Hero */}
       <div className={styles.hero}>
         <h1>{greeting}, {user.full_name}</h1>
         <p>
-          {data?.profile?.farm_name ? `${data.profile.farm_name}` : 'Farm not set'}
+          {data?.profile?.farm_name || 'Farm not set'}
           {data?.profile?.location ? ` · ${data.profile.location}` : ''}
         </p>
       </div>
+
+      {/* Profile update form */}
+      {showProfile && (
+        <div className={styles.profileCard}>
+          <div className={styles.profileTitle}>Update Farm Profile</div>
+          <div className={styles.profileGrid}>
+            <div className={styles.field}>
+              <label>{t('farm_name')}</label>
+              <input value={profileForm.farm_name}
+                onChange={e => setProfileForm({...profileForm, farm_name: e.target.value})}
+                placeholder="Name of your farm" />
+            </div>
+            <div className={styles.field}>
+              <label>{t('location')}</label>
+              <input value={profileForm.location}
+                onChange={e => setProfileForm({...profileForm, location: e.target.value})}
+                placeholder="Village / District" />
+            </div>
+            <div className={styles.field}>
+              <label>{t('cattle_count')}</label>
+              <input type="number" min="0" value={profileForm.cattle_count}
+                onChange={e => setProfileForm({...profileForm, cattle_count: +e.target.value})} />
+            </div>
+          </div>
+          <button className={styles.saveBtn} onClick={saveProfile} disabled={saving}>
+            {saving ? 'Saving...' : t('update_profile')}
+          </button>
+        </div>
+      )}
 
       {/* Metrics */}
       <div className={styles.metrics}>
         {metrics.map(m => (
           <div key={m.label} className={styles.metricCard} style={{ borderLeftColor: m.color }}>
-            <div className={styles.metricIconBox} style={{ background: `${m.color}15`, color: m.color }}>
-              {m.icon}
-            </div>
+            <div className={styles.metricIconBox} style={{ background: `${m.color}15`, color: m.color }}>{m.icon}</div>
             <div>
               <div className={styles.metricValue}>{m.value}</div>
               <div className={styles.metricLabel}>{m.label}</div>
@@ -93,10 +140,21 @@ export default function FarmerDashboard() {
         <div className={styles.barTrack}>
           <div className={styles.barFill} style={{ width: `${score}%`, background: scoreColor }} />
         </div>
-        <div className={styles.healthStatus} style={{ color: scoreColor }}>
-          {scoreLabel} — {t('based_on_scans', { count: Math.min(scans.length, 5) })}
-        </div>
+        <div className={styles.healthStatus} style={{ color: scoreColor }}>{scoreLabel}</div>
       </div>
+
+      {/* Tip of the day */}
+      {tip && (
+        <div className={styles.tipCard}>
+          <div className={styles.tipHeader}><FiInfo size={14} /> {t('tip_of_day')} — {tip.tip.title}</div>
+          <div className={styles.tipText}>{tip.tip.desc}</div>
+          {tip.alert && (
+            <div className={`${styles.seasonAlert} ${tip.alert.type === 'warning' ? styles.alertWarn : styles.alertInfo}`}>
+              {tip.alert.msg}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Quick actions */}
       <div className={styles.sectionTitle}>{t('quick_actions')}</div>
@@ -127,9 +185,7 @@ export default function FarmerDashboard() {
             <div key={i} className={styles.activityItem}>
               <div className={styles.activityDot} style={{ background: isHealthy ? '#1a6b3c' : '#c0392b' }} />
               <div className={styles.activityText}>{s.predicted_disease}</div>
-              <div className={styles.activityConf} style={{ color: isHealthy ? '#1a6b3c' : '#c0392b' }}>
-                {s.confidence}%
-              </div>
+              <div className={styles.activityConf} style={{ color: isHealthy ? '#1a6b3c' : '#c0392b' }}>{s.confidence}%</div>
               <div className={styles.activityMeta}>{s.scanned_at?.slice(0, 10)}</div>
             </div>
           )

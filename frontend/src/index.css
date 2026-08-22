@@ -94,8 +94,10 @@ input, textarea, select { font-family: inherit; }
     padding: 16px 12px 80px !important;
   }
 
-  /* Hide brand, user card, language switcher on mobile */
-  .brand, .userCard, .navSection, .sidebarBottom { display: none !important; }
+  /* Hide brand, user card, language switcher on mobile — but keep logout */
+  .brand, .userCard, .navSection { display: none !important; }
+  .sidebarBottom { flex-direction: row !important; padding: 0 4px !important; gap: 4px !important; }
+  .themeBtn { display: none !important; }
 
   /* Nav becomes horizontal */
   nav { flex-direction: row !important; gap: 0 !important; padding: 0 !important; }

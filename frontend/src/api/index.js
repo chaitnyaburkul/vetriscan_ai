@@ -11,8 +11,8 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
   res => res,
   err => {
-    if (err.response?.status === 401 || err.response?.status === 422) {
-      // Token invalid or user not found in DB — force logout
+    // Only force logout on 401 (unauthorized) — NOT on 422 (validation errors like low confidence)
+    if (err.response?.status === 401) {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
       window.location.href = '/'

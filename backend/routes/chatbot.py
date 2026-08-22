@@ -51,7 +51,7 @@ def chat(req: ChatRequest, user=Depends(get_current_user)):
 
         system = SYSTEM_PROMPT + "\n" + LANG_SUFFIX.get(req.language, "")
 
-        for model_name in ["gemini-2.0-flash-lite", "gemini-2.0-flash", "gemini-2.5-flash", "gemini-flash-latest"]:
+        for model_name in ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-flash-latest", "gemini-2.0-flash-lite"]:
             try:
                 resp = client.models.generate_content(
                     model=model_name, contents=history,
@@ -69,8 +69,11 @@ def chat(req: ChatRequest, user=Depends(get_current_user)):
                     pass  # Don't fail if logging fails
                 return {"response": response_text}
             except Exception as e:
-                if "429" in str(e) or "quota" in str(e).lower():
+                err = str(e)
+                if "429" in err or "quota" in err.lower():
                     continue
+                if "PERMISSION_DENIED" in err or "leaked" in err.lower():
+                    return {"response": "The AI API key has been revoked. Please update the GEMINI_API_KEY in the backend .env file."}
                 raise e
 
         return {"response": "AI service is temporarily busy due to rate limits. Please wait 1 minute and try again."}

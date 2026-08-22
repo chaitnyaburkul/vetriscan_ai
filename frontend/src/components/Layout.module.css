@@ -20,7 +20,7 @@
 /* ── Sidebar ── */
 .sidebar {
   width: 260px;
-  min-height: 100vh;
+  height: 100vh;
   background: var(--bg2);
   border-right: 1px solid var(--border);
   display: flex;
@@ -30,6 +30,8 @@
   z-index: 100;
   box-shadow: 2px 0 8px rgba(0,0,0,0.06);
   padding-top: 32px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Brand header */
@@ -87,7 +89,7 @@
   color: var(--text3); text-transform: uppercase;
   letter-spacing: 1px; padding: 0 8px; margin-bottom: 4px;
 }
-.nav { display: flex; flex-direction: column; gap: 2px; flex: 1; padding: 0 12px; }
+.nav { display: flex; flex-direction: column; gap: 2px; flex: 1; padding: 0 12px; overflow-y: auto; min-height: 0; }
 
 .navItem {
   display: flex; align-items: center; gap: 10px;
@@ -121,6 +123,7 @@
   padding: 12px;
   border-top: 1px solid var(--border);
   display: flex; flex-direction: column; gap: 8px;
+  margin-top: auto;
 }
 .logoutBtn {
   display: flex; align-items: center; gap: 8px;

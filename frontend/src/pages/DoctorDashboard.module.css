@@ -1,0 +1,22 @@
+.heroDoc {
+  background: linear-gradient(135deg, #1a3a5c, #1a5276);
+  border-radius: 12px; padding: 22px 28px; color: white;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.heroDocLeft {}
+.docName { font-size: 1.3rem; font-weight: 800; }
+.docMeta { color: rgba(255,255,255,0.75); font-size: 0.85rem; margin-top: 4px; }
+
+.availBadge {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 16px; border-radius: 8px;
+  font-weight: 700; font-size: 0.85rem; border: 2px solid;
+}
+.availOn  { background: rgba(26,107,60,0.2); border-color: #2ecc71; color: #2ecc71; }
+.availOff { background: rgba(192,57,43,0.2); border-color: #e74c3c; color: #e74c3c; }
+
+.toggleLabel {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.88rem; color: var(--text2); cursor: pointer; font-weight: 500;
+}
+.toggleLabel input { width: 16px; height: 16px; accent-color: var(--primary); }

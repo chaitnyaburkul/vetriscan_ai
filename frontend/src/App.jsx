@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import { Component } from 'react'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -13,6 +14,31 @@ import AdminDashboard from './pages/AdminDashboard'
 import CattleManager from './pages/CattleManager'
 import RealtimeMonitor from './pages/RealtimeMonitor'
 import VetClinics from './pages/VetClinics'
+
+// Error boundary to catch crashes
+class ErrorBoundary extends Component {
+  constructor(props) { super(props); this.state = { error: null } }
+  static getDerivedStateFromError(e) { return { error: e } }
+  render() {
+    if (this.state.error) {
+      return (
+        <div style={{ padding: 40, fontFamily: 'Arial', color: '#c0392b' }}>
+          <h2>Something went wrong</h2>
+          <pre style={{ background: '#fdf2f2', padding: 16, borderRadius: 8, fontSize: 13, whiteSpace: 'pre-wrap' }}>
+            {this.state.error?.message}
+            {'\n\n'}
+            {this.state.error?.stack?.slice(0, 500)}
+          </pre>
+          <button onClick={() => { localStorage.clear(); window.location.href = '/' }}
+            style={{ marginTop: 16, padding: '10px 20px', background: '#1a6b3c', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 14 }}>
+            Clear & Reload
+          </button>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
 
 // Always read fresh from localStorage — never cache at module level
 const getUser = () => {
@@ -40,6 +66,7 @@ export default function App() {
   const user = getUser()
 
   return (
+    <ErrorBoundary>
     <BrowserRouter>
       <Toaster position="top-right" toastOptions={{
         style: { background: '#f4f6f9', color: '#1a2332', border: '1px solid #d0d7e2' }
@@ -60,5 +87,6 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </ErrorBoundary>
   )
 }
